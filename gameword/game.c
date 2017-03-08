@@ -8,7 +8,7 @@
 #define LineEnd Max_Line-2
 #define RankBegin 1
 #define RankEnd Max_Rank-3
-
+#define Max_Level 10
 
 char g_map[Max_Line][Max_Rank] =
 {
@@ -24,15 +24,29 @@ char g_map[Max_Line][Max_Rank] =
 	"**********************",
 };
 
+int g_arryLevelScore[Max_Level+1]=
+{
+	0,50,100,150,200,250,300,350,400,450,500
+};
+int g_arryMoveIterval[Max_Level + 1] =
+{
+	0, 1000, 900, 800, 700, 600, 500, 400, 300, 200,100
+};
+int g_arryCreateWordIterval[Max_Level + 1] =
+{
+	0,2000,1800,1600,1400,1200,1000,800,600,400,200
+};
+
 void PrintMap(); //打印游戏地图
 void CreateWord();  //生成字母
 void Move();  //字母移动
 void CheckAttack(char key); //按键是否打中
 void PrintInfo();  //输出信息
+void CheckLevel(); //检测是否到下一关
 int g_score = 0; //分数
 int g_level = 1; //关卡
 int g_hpValue = 100; //血量
-char g_tipStr[20]=""; //提示文字
+char g_tipStr[200]=""; //提示文字
 unsigned g_moveTimeInterval= 1000; //字母移动时间间隔
 unsigned g_createWordInterval = 2000; //创建字母的时间间隔
 unsigned g_lastMoveTime = 0; //上次移动的时间
@@ -47,10 +61,17 @@ void main()
 	{
 
 		unsigned TimeNow = GetTickCount();
-		system("cls");
+	
 		if (TimeNow-g_lastMoveTime >=g_moveTimeInterval)
 		{
 			Move();  //移动
+			if (g_hpValue < 0)
+			{
+				system("cls");
+				PrintMap(); //打印地图
+				PrintInfo(); //输出信息
+				break;
+			}
 			g_lastMoveTime = TimeNow;
 		}
 		if (TimeNow-g_lastCreateWordTime >=g_createWordInterval)
@@ -58,19 +79,35 @@ void main()
 			CreateWord(); //生成字母
 			g_lastCreateWordTime = TimeNow;
 		}
-				
+		system("cls");
 		PrintMap(); //打印地图
-		PrintInfo(); //输出信息
+				
 		if (_kbhit()) //有键按下
 		{
 			char key = _getch();
 			CheckAttack(key);  //检测是否打字正确
-		
+			if (g_level>Max_Level)
+			{
+				break;
+			}
 		}
-
+		PrintInfo(); //输出信息
+	
+		
 		Sleep(50);
-
 	}
+	//判断到底是挂了还是通关了
+	if (g_hpValue< 0)
+	{
+		//挂了
+		puts("你挂了，继续加油吧！！！");
+	}
+	else if (g_level>Max_Level)
+	{
+		//通关了
+		puts("恭喜你，通关了！！！");
+	}
+	system("pause");
 }
 
 void PrintMap()
@@ -90,6 +127,11 @@ void Move()
 		{
 			for (int j = RankBegin; j <= RankEnd; j++)
 			{
+				if (g_map[i][j] != ' ')
+				{
+					//掉了个字母
+					g_hpValue -= 20;
+				}
 				g_map[i][j] = ' ';
 			}
 		}
@@ -138,6 +180,7 @@ void CheckAttack(char key)
 			{
 				//匹配成功
 				g_score += 10;
+				CheckLevel(); //检测通过关卡
 				g_map[i][j] = ' ';
 				num++;
 			}
@@ -185,4 +228,19 @@ void PrintInfo() //输出信息
 
     //提示信息
 		puts(g_tipStr);
+}
+void CheckLevel()
+{
+	if (g_score >= g_arryLevelScore[g_level])
+	{
+		g_level++;
+		if (g_level > Max_Level)
+		{
+			// 通关了
+			return;
+		}
+		g_moveTimeInterval = g_arryMoveIterval[g_level];
+		g_createWordInterval = g_arryCreateWordIterval[g_level];
+			
+	}
 }
