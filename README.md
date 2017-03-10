@@ -1,6 +1,8 @@
 # gameword
 gmaeword目前是一款由C语言编写设计的打字小游戏，初步设计了关卡、血量、得分等信息。
 
+![image](https://github.com/wcyd/gifs/blob/gh-pages/excited/never-ending-story.gif)
+
 ## 主要功能
 * 休闲娱乐 :bowtie:
 * 熟悉键盘 :bowtie:
