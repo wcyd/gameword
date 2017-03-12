@@ -37,25 +37,25 @@ int g_arryCreateWordIterval[Max_Level + 1] =
 	0,2000,1800,1600,1400,1200,1000,800,600,400,200
 };
 
-void PrintMap(); //´òÓ¡ÓÎÏ·µØÍ¼
-void CreateWord();  //Éú³É×ÖÄ¸
-void Move();  //×ÖÄ¸ÒÆ¶¯
-void CheckAttack(char key); //°´¼üÊÇ·ñ´òÖĞ
-void PrintInfo();  //Êä³öĞÅÏ¢
-void CheckLevel(); //¼ì²âÊÇ·ñµ½ÏÂÒ»¹Ø
-int g_score = 0; //·ÖÊı
-int g_level = 1; //¹Ø¿¨
-int g_hpValue = 100; //ÑªÁ¿
-char g_tipStr[200]=""; //ÌáÊ¾ÎÄ×Ö
-unsigned g_moveTimeInterval= 1000; //×ÖÄ¸ÒÆ¶¯Ê±¼ä¼ä¸ô
-unsigned g_createWordInterval = 2000; //´´½¨×ÖÄ¸µÄÊ±¼ä¼ä¸ô
-unsigned g_lastMoveTime = 0; //ÉÏ´ÎÒÆ¶¯µÄÊ±¼ä
-unsigned g_lastCreateWordTime = 0; //ÉÏ´Î×ÖÄ¸Éú³ÉµÄÊ±¼ä
+void PrintMap(); //æ‰“å°æ¸¸æˆåœ°å›¾
+void CreateWord();  //ç”Ÿæˆå­—æ¯
+void Move();  //å­—æ¯ç§»åŠ¨
+void CheckAttack(char key); //æŒ‰é”®æ˜¯å¦æ‰“ä¸­
+void PrintInfo();  //è¾“å‡ºä¿¡æ¯
+void CheckLevel(); //æ£€æµ‹æ˜¯å¦åˆ°ä¸‹ä¸€å…³
+int g_score = 0; //åˆ†æ•°
+int g_level = 1; //å…³å¡
+int g_hpValue = 100; //è¡€é‡
+char g_tipStr[200]=""; //æç¤ºæ–‡å­—
+unsigned g_moveTimeInterval= 1000; //å­—æ¯ç§»åŠ¨æ—¶é—´é—´éš”
+unsigned g_createWordInterval = 2000; //åˆ›å»ºå­—æ¯çš„æ—¶é—´é—´éš”
+unsigned g_lastMoveTime = 0; //ä¸Šæ¬¡ç§»åŠ¨çš„æ—¶é—´
+unsigned g_lastCreateWordTime = 0; //ä¸Šæ¬¡å­—æ¯ç”Ÿæˆçš„æ—¶é—´
 
 void main()
 {
-	srand(GetTickCount());  //ÉèÖÃËæ»úÖÖ×Ó
-	//GetTickCount()»ñµÃµ±Ç°Ê±¼ä£¨ºÁÃë¼¶£©£¬Ïà¶ÔÓÚ¿ª»úµ½ÏÖÔÚµÄÊ±¼ä
+	srand(GetTickCount());  //è®¾ç½®éšæœºç§å­
+	//GetTickCount()è·å¾—å½“å‰æ—¶é—´ï¼ˆæ¯«ç§’çº§ï¼‰ï¼Œç›¸å¯¹äºå¼€æœºåˆ°ç°åœ¨çš„æ—¶é—´
 
 	while (1)
 	{
@@ -64,48 +64,48 @@ void main()
 	
 		if (TimeNow-g_lastMoveTime >=g_moveTimeInterval)
 		{
-			Move();  //ÒÆ¶¯
+			Move();  //ç§»åŠ¨
 			if (g_hpValue < 0)
 			{
 				system("cls");
-				PrintMap(); //´òÓ¡µØÍ¼
-				PrintInfo(); //Êä³öĞÅÏ¢
+				PrintMap(); //æ‰“å°åœ°å›¾
+				PrintInfo(); //è¾“å‡ºä¿¡æ¯
 				break;
 			}
 			g_lastMoveTime = TimeNow;
 		}
 		if (TimeNow-g_lastCreateWordTime >=g_createWordInterval)
 		{
-			CreateWord(); //Éú³É×ÖÄ¸
+			CreateWord(); //ç”Ÿæˆå­—æ¯
 			g_lastCreateWordTime = TimeNow;
 		}
 		system("cls");
-		PrintMap(); //´òÓ¡µØÍ¼
+		PrintMap(); //æ‰“å°åœ°å›¾
 				
-		if (_kbhit()) //ÓĞ¼ü°´ÏÂ
+		if (_kbhit()) //æœ‰é”®æŒ‰ä¸‹
 		{
 			char key = _getch();
-			CheckAttack(key);  //¼ì²âÊÇ·ñ´ò×ÖÕıÈ·
+			CheckAttack(key);  //æ£€æµ‹æ˜¯å¦æ‰“å­—æ­£ç¡®
 			if (g_level>Max_Level)
 			{
 				break;
 			}
 		}
-		PrintInfo(); //Êä³öĞÅÏ¢
+		PrintInfo(); //è¾“å‡ºä¿¡æ¯
 	
 		
-		Sleep(50);
+		Sleep(60);
 	}
-	//ÅĞ¶Ïµ½µ×ÊÇ¹ÒÁË»¹ÊÇÍ¨¹ØÁË
+	//åˆ¤æ–­åˆ°åº•æ˜¯æŒ‚äº†è¿˜æ˜¯é€šå…³äº†
 	if (g_hpValue< 0)
 	{
-		//¹ÒÁË
-		puts("Äã¹ÒÁË£¬¼ÌĞø¼ÓÓÍ°É£¡£¡£¡");
+		//æŒ‚äº†
+		puts("ä½ æŒ‚äº†ï¼Œç»§ç»­åŠ æ²¹å§ï¼ï¼ï¼");
 	}
 	else if (g_level>Max_Level)
 	{
-		//Í¨¹ØÁË
-		puts("¹§Ï²Äã£¬Í¨¹ØÁË£¡£¡£¡");
+		//é€šå…³äº†
+		puts("æ­å–œä½ ï¼Œé€šå…³äº†ï¼ï¼ï¼");
 	}
 	system("pause");
 }
@@ -129,7 +129,7 @@ void Move()
 			{
 				if (g_map[i][j] != ' ')
 				{
-					//µôÁË¸ö×ÖÄ¸
+					//æ‰äº†ä¸ªå­—æ¯
 					g_hpValue -= 20;
 				}
 				g_map[i][j] = ' ';
@@ -151,15 +151,15 @@ void CreateWord()
 {
 	while (1)
 	{
-		//¶ÔNÈ¡Óà  ½á¹ûÎª0-£¨N-1£©
+		//å¯¹Nå–ä½™  ç»“æœä¸º0-ï¼ˆN-1ï¼‰
 		int indexRank = rand() % (RankEnd - RankBegin + 1) + RankBegin;
 		if (g_map[LineBegin][indexRank] != ' ')
 		{
-			//ÒÑ¾­ÓĞ×ÖÄ¸
+			//å·²ç»æœ‰å­—æ¯
 			continue;
 
 		}
-		//Ëæ»úÒ»¸ö×ÖÄ¸
+		//éšæœºä¸€ä¸ªå­—æ¯
 		char word = rand() % 26 + 'A';
 		g_map[LineBegin][indexRank] = word;
 		break;
@@ -178,9 +178,9 @@ void CheckAttack(char key)
 		{
 			if (key == g_map[i][j] || g_map[i][j]+('a'-'A')==key)
 			{
-				//Æ¥Åä³É¹¦
+				//åŒ¹é…æˆåŠŸ
 				g_score += 10;
-				CheckLevel(); //¼ì²âÍ¨¹ı¹Ø¿¨
+				CheckLevel(); //æ£€æµ‹é€šè¿‡å…³å¡
 				g_map[i][j] = ' ';
 				num++;
 			}
@@ -192,41 +192,41 @@ void CheckAttack(char key)
 	}
 	else if (num == 2)
 	{
-		strcpy(g_tipStr, "¹§Ï²Äã£¬Íê³ÉÁËÒ»´ÎË«É±£¡");
+		strcpy(g_tipStr, "æ­å–œä½ ï¼Œå®Œæˆäº†ä¸€æ¬¡åŒæ€ï¼");
 		g_score += 5;
 	}
 	else if (num == 3)
 	{
-		strcpy(g_tipStr, "¹§Ï²Äã£¬Íê³ÉÁËÒ»´ÎÈıÉ±£¡");
+		strcpy(g_tipStr, "æ­å–œä½ ï¼Œå®Œæˆäº†ä¸€æ¬¡ä¸‰æ€ï¼");
 		g_score += 10;
 	}
 	else if (num == 4)
 	{
-		strcpy(g_tipStr, "¹§Ï²Äã£¬Íê³ÉÁËÒ»´ÎËÄÉ±£¡");
+		strcpy(g_tipStr, "æ­å–œä½ ï¼Œå®Œæˆäº†ä¸€æ¬¡å››æ€ï¼");
 		g_score += 30;
 	}
 	else
 	{
-		strcpy(g_tipStr, "ÄãÅ£B£¡ÔŞ£¡£¡");
+		strcpy(g_tipStr, "ä½ ç‰›Bï¼èµï¼ï¼");
 		g_score += 1000;
 	}
 }
-void PrintInfo() //Êä³öĞÅÏ¢
+void PrintInfo() //è¾“å‡ºä¿¡æ¯
 {
-	//¹Ø¿¨ĞÅÏ¢
+	//å…³å¡ä¿¡æ¯
 	char info[100] = "";
-		sprintf(info, "µ±Ç°¹Ø¿¨£º%d", g_level);
+		sprintf(info, "å½“å‰å…³å¡ï¼š%d", g_level);
 		puts(info);
 
-    // ·ÖÊıĞÅÏ¢
-		sprintf(info, "µ±Ç°·ÖÊı£º%d", g_score);
+    // åˆ†æ•°ä¿¡æ¯
+		sprintf(info, "å½“å‰åˆ†æ•°ï¼š%d", g_score);
 		puts(info);
 
-    // ÑªÁ¿
-		sprintf(info, "Ê£ÓàÑªÁ¿£º%d", g_hpValue);
+    // è¡€é‡
+		sprintf(info, "å‰©ä½™è¡€é‡ï¼š%d", g_hpValue);
 		puts(info);
 
-    //ÌáÊ¾ĞÅÏ¢
+    //æç¤ºä¿¡æ¯
 		puts(g_tipStr);
 }
 void CheckLevel()
@@ -236,7 +236,7 @@ void CheckLevel()
 		g_level++;
 		if (g_level > Max_Level)
 		{
-			// Í¨¹ØÁË
+			// é€šå…³äº†
 			return;
 		}
 		g_moveTimeInterval = g_arryMoveIterval[g_level];
