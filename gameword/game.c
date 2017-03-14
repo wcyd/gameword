@@ -26,7 +26,7 @@ char g_map[Max_Line][Max_Rank] =
 
 int g_arryLevelScore[Max_Level+1]=
 {
-	0,50,100,150,200,250,300,350,400,450,500
+	0,100,150,200,250,300,340,370,400,420,430
 };
 int g_arryMoveIterval[Max_Level + 1] =
 {
@@ -100,7 +100,7 @@ void main()
 	if (g_hpValue< 0)
 	{
 		//挂了
-		puts("你挂了，继续加油吧！！！");
+		puts("你挂了，重新开始把！！！");
 	}
 	else if (g_level>Max_Level)
 	{
