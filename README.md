@@ -18,9 +18,9 @@ gmaeword目前是一款由C语言编写设计的打字小游戏，初步设计�
 
 *And Triple kill:anguished:, Ultra kill:open_mouth:, Pentakill:hushed:*
 
-####Note:双杀、三杀、四杀...分数都有相应的奖励！:smiling_imp:
+#### Note:双杀、三杀、四杀...分数都有相应的奖励！:smiling_imp:
 
-##How to Contribute
+## How to Contribute
 * 先fork此项目，在分支修改后，pull request到主分支
 
 * 提问请到issues里创建，欢迎contributor！
