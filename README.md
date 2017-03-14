@@ -25,4 +25,4 @@ gmaeword目前是一款由C语言编写设计的打字小游戏，初步设计�
 
 * 提问请到issues里创建，欢迎contributor！
 
-* ###如果觉得好，给项目点颗星吧:kissing_closed_eyes:～
+* ### 如果觉得好，给项目点颗星吧:kissing_closed_eyes:～
