@@ -100,7 +100,7 @@ void main()
 	if (g_hpValue< 0)
 	{
 		//挂了
-		puts("你挂了，重新开始把！！！");
+		puts("你挂了，重新开始吧！！！");
 	}
 	else if (g_level>Max_Level)
 	{
