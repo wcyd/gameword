@@ -8,7 +8,7 @@ gmaeword目前是一款由C语言编写设计的打字小游戏，初步设计�
 * 熟悉键盘 :bowtie:
  
 ## 截图
-*Began* :relaxed:  
+*Begin* :relaxed:  
 
 ![image](https://github.com/wcyd/gameword/blob/master/shot1.png)
 
